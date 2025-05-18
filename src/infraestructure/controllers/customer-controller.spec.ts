@@ -6,6 +6,7 @@ import { CreateCustomerDto } from '@core/application/dtos/create-customer-dto'
 import { Customer } from '@core/enterprise/entities/customer'
 import { Document } from '@core/enterprise/valueObjects/document'
 import { CreateCustomerUseCase } from '@core/application/useCases/create-customer-use-case'
+import SqsClient from '@infra/config/sqs.config'
 
 vi.mock('@core/application/useCases/create-customer-use-case', () => {
   return {
@@ -51,9 +52,11 @@ describe('CustomerController', () => {
   }
 
   let controller: CustomerController
+  let sqsClient: SqsClient
 
   beforeEach(() => {
-    controller = new CustomerController(mockCustomerDataSource)
+    sqsClient = { sendMessage: vi.fn() } as unknown as SqsClient
+    controller = new CustomerController(mockCustomerDataSource, sqsClient)
   })
 
   it('should create a customer and return a presenter', async () => {
@@ -67,6 +70,11 @@ describe('CustomerController', () => {
 
     expect(CreateCustomerUseCase).toHaveBeenCalledWith(
       expect.any(CustomerGateway),
+    )
+
+    expect(sqsClient.sendMessage).toHaveBeenCalledWith(
+      process.env.CREATED_CUSTOMER_QUEUE_URL ?? '',
+      result,
     )
 
     expect(result).toStrictEqual(

@@ -11,7 +11,8 @@ customerRouter.post(
     try {
       const dataSource: ICustomerDataSource =
         request.app.locals.customerDataSource
-      const customerController = new CustomerController(dataSource)
+      const sqsClient = request.app.locals.sqsClient
+      const customerController = new CustomerController(dataSource, sqsClient)
 
       const { name, document, email } = request.body
 
@@ -34,7 +35,8 @@ customerRouter.get(
     try {
       const dataSource: ICustomerDataSource =
         request.app.locals.customerDataSource
-      const customerController = new CustomerController(dataSource)
+      const sqsClient = request.app.locals.sqsClient
+      const customerController = new CustomerController(dataSource, sqsClient)
 
       const { document } = request.params
       const customers =
