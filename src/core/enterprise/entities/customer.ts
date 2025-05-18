@@ -6,9 +6,9 @@ export class Customer {
   id: UniqueEntityId
 
   constructor(
-    private name: string,
-    private document: Document,
-    private email: string,
+    private readonly name: string,
+    private readonly document: Document,
+    private readonly email: string,
     id?: string,
   ) {
     this.validateName(name)
@@ -39,7 +39,7 @@ export class Customer {
   }
 
   private validateEmail(email: string): void {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     if (!emailRegex.test(email)) {
       throw new InvalidCustomerError('Invalid email.')
     }
