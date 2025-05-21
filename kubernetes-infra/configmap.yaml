@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: customer-api-config
 data:
-  CREATED_CUSTOMER_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835918211047/created-customer-queue"
+  CREATED_CUSTOMER_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/835311494914/created-customer-queue"
