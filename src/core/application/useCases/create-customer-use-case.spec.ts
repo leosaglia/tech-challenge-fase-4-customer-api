@@ -54,7 +54,7 @@ describe('CreateCustomerUseCase', () => {
 
     await expect(sut.execute(createCustomerDto)).rejects.toThrow(
       expect.objectContaining({
-        message: 'Customer already exists.',
+        message: 'Customer already exists..',
         name: CustomerAlreadyExistsError.name,
       }),
     )

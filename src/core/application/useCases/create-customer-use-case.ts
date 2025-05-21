@@ -23,7 +23,7 @@ export class CreateCustomerUseCase {
     )
 
     if (customerFound) {
-      throw new CustomerAlreadyExistsError('Customer already exists.')
+      throw new CustomerAlreadyExistsError('Customer already exists..')
     }
 
     this.customerGateway.create(customer)
